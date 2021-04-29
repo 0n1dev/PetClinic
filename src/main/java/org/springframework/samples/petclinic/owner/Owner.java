@@ -62,6 +62,22 @@ public class Owner extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets;
 
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@Column(name = "age")
+	@NotEmpty
+	private Integer age;
+
 	public String getAddress() {
 		return this.address;
 	}
