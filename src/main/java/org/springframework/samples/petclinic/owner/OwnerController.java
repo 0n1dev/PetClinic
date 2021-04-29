@@ -15,15 +15,13 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -43,11 +41,21 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	private VisitRepository visits;
+	private final VisitRepository visits;
 
-	public OwnerController(OwnerRepository clinicService, VisitRepository visits) {
+	private final ApplicationContext context;
+
+	public OwnerController(OwnerRepository clinicService, VisitRepository visits, ApplicationContext context) {
 		this.owners = clinicService;
 		this.visits = visits;
+		this.context = context;
+	}
+
+	@GetMapping("/bean")
+	@ResponseBody
+	public String getBean() {
+		return "bean = " + context.getBean(OwnerRepository.class) + "\n"
+			+ "Owner = " + this.owners;
 	}
 
 	@InitBinder
