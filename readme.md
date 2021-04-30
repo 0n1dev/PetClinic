@@ -123,3 +123,14 @@ class B {
 - 컴파일 A.java -> (AOP) -> A.class (AspectJ)
 - 바이트코드 조작 A.java -> A.class -> (AOP) -> 메모리 (AspectJ)
 - 프록시 패턴 (스프링 AOP)
+
+# PSA
+
+> 스프링 트라이 앵글의 마지막 
+
+... 추상화... 좀 더 공부해봐야 할듯 
+
+spring mvc -> spring webflux 로 변경해도 변경할 코드가 크게 없음
+
+@Transactional
+코드 변경없이 JpaTrasctionManager | DatasourceTransactionManager 등 바꿔서 사용 가능
