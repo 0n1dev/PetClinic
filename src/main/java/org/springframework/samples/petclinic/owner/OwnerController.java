@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -45,10 +46,13 @@ class OwnerController {
 
 	private final ApplicationContext context;
 
-	public OwnerController(OwnerRepository clinicService, VisitRepository visits, ApplicationContext context) {
+	private final PetRepository pets;
+
+	public OwnerController(OwnerRepository clinicService, VisitRepository visits, ApplicationContext context, PetRepository pets) {
 		this.owners = clinicService;
 		this.visits = visits;
 		this.context = context;
+		this.pets = pets;
 	}
 
 	@GetMapping("/bean")
@@ -65,8 +69,14 @@ class OwnerController {
 
 	@GetMapping("/owners/new")
 	public String initCreationForm(Map<String, Object> model) {
+		StopWatch stopwatch = new StopWatch();
+		stopwatch.start();
+
 		Owner owner = new Owner();
 		model.put("owner", owner);
+
+		stopwatch.stop();
+		System.out.println(stopwatch.prettyPrint());
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
@@ -83,7 +93,12 @@ class OwnerController {
 
 	@GetMapping("/owners/find")
 	public String initFindForm(Map<String, Object> model) {
+		StopWatch stopwatch = new StopWatch();
+
 		model.put("owner", new Owner());
+
+		stopwatch.stop();
+		System.out.println(stopwatch.prettyPrint());
 		return "owners/findOwners";
 	}
 

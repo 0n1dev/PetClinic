@@ -39,3 +39,87 @@
 - compile : src/main/java 디렉토리 아래의 모든 소스 코드가 컴파일
 - test : src/test/java, src/test/resources 테스트 자원 복사 및 테스트 소스 코드 컴파일
 - packaging : 컴파일과 테스트가 완료 된 후 jar, war 과 같은 형태로 압축하는 작업
+
+# IOC
+---
+
+> Inversion of Control의 약자
+
+- 기존에는 의존 관계 연결 작업에 대한 제어권은 개발되는 어플리케이션에 있음
+- Servlet, EJB 등을 사용하는 경우 제어권이 넘어가 객체의 생명주기를 컨테이너들이 전담
+- IoC는 객체의 생성부터 생명주기의 관리까지 모든 객체에 대한 제어권이 바뀌었다는것을 의미
+
+## 장/단점
+---
+
+### 장점
+
+- 인터페이스 기반 설계가 가능
+- 컴포넌트 재사용성 증가
+- 체계적이고 효율적인 의존성 관리
+
+### 단점
+
+- 제어구조가 반대로 되어 이해하기 어려운 코드가 될 수 있음
+
+# IoC 컨테이너란?
+---
+
+- 객체를 관리 및 의존성을 관리하는 컨테이너
+- POJO 생성, 초기화, 서비스 소멸에 관한 모든 권한을 가지면서 POJO의 생명 주기를 관리
+- 개발자들이 POJO를 생성할 수 있지만, 모든 권한을 컨테이너에게 맡김
+
+# DI란?
+---
+
+> Dependency Injection 의존성 삽입
+
+- 각 클래스 사이의 의존관계를 Bean Definition 정보를 바탕으로 컨테이너가 자동적으로 연결해주는 것
+- 개발자들은 단지 빈 설정파일에서 의존관계가 필요하다는 정보를 추가하면 됨
+
+## DI 종류
+---
+
+- Constructor Injection
+- Setter Injection
+- Field Injection
+
+# AOP
+---
+
+> 관점 지향 프로그래밍
+
+```java
+class A {
+
+    method a() {
+        AAAA
+        얍얍얍얍
+        BBBB
+    }
+
+    method b() {
+        AAAA
+        뭐하지???
+        BBBB
+    }
+}
+
+class B {
+
+    method c() {
+        AAAA
+        뭐하지???
+        BBBB
+    }
+}
+```
+
+공통적으로 하는 AAAA, BBBB를 변경이 있을 때 유지보수에 불편함이 있어서 관심사 분리가 가능한지 고민
+
+## AOP 구현 방법
+---
+
+- 컴파일 A.java -> (AOP) -> A.class (AspectJ)
+- 바이트코드 조작 A.java -> A.class -> (AOP) -> 메모리 (AspectJ)
+- 프록시 패턴 (스프링 AOP)
